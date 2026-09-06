@@ -44,6 +44,12 @@ function printSheet(title, bodyHtml) {
 
 /* ---------------- Tracing mode ---------------- */
 
+/* A single-story literacy font (free, SIL Open Font License) instead of a
+   normal UI font's double-story "a"/"g" — the same style used when
+   teaching children to form letters, so the traced shape matches what
+   they're taught to write by hand. */
+const TRACE_FONT_FAMILY = 'Andika, system-ui, sans-serif';
+
 const tracing = {
   set: UPPERCASE_LETTERS,
   index: 0,
@@ -66,12 +72,14 @@ function initTracing() {
   document.getElementById('trace-clear').addEventListener('click', drawGuide);
   document.getElementById('trace-hear').addEventListener('click', () => {
     const item = tracing.set[tracing.index];
-    speak(item.spokenName);
+    speak(item.rhyme ? `${item.spokenName}. ${item.rhyme}` : item.spokenName);
   });
   document.getElementById('trace-print').addEventListener('click', () => {
     const label = document.getElementById('trace-current-label').textContent;
+    const rhymeText = document.getElementById('trace-rhyme');
+    const rhymeHtml = !rhymeText.hidden ? `<p class="print-rhyme">🎵 ${rhymeText.textContent.replace(/^🎵\s*/, '')}</p>` : '';
     const dataUrl = tracing.canvas.toDataURL('image/png');
-    printSheet(label, `<div class="print-sheet-image-wrap"><img src="${dataUrl}" alt="${label}" /></div>`);
+    printSheet(label, `<div class="print-sheet-image-wrap"><img src="${dataUrl}" alt="${label}" />${rhymeHtml}</div>`);
   });
 
   document.querySelectorAll('.color-swatch').forEach(btn => {
@@ -107,7 +115,11 @@ function initTracing() {
     canvas.addEventListener(evt, () => { tracing.drawing = false; });
   });
 
-  drawGuide();
+  if (document.fonts && document.fonts.load) {
+    document.fonts.load(`bold 320px ${TRACE_FONT_FAMILY}`).finally(drawGuide);
+  } else {
+    drawGuide();
+  }
 }
 
 function pointerPos(e) {
@@ -151,16 +163,24 @@ function drawGuide() {
 
   let fontSize = 320;
   const maxWidth = canvas.width - 60;
-  ctx.font = `bold ${fontSize}px system-ui, sans-serif`;
+  ctx.font = `bold ${fontSize}px ${TRACE_FONT_FAMILY}`;
   while (ctx.measureText(text).width > maxWidth && fontSize > 20) {
     fontSize -= 6;
-    ctx.font = `bold ${fontSize}px system-ui, sans-serif`;
+    ctx.font = `bold ${fontSize}px ${TRACE_FONT_FAMILY}`;
   }
   ctx.fillText(text, canvas.width / 2, canvas.height / 2);
 
   const item = tracing.set.find(s => s.char === text);
   const label = document.getElementById('trace-current-label');
   label.textContent = item ? `${item.kind === 'number' ? 'Number' : 'Letter'}: ${text}` : `Word: ${text}`;
+
+  const rhymeEl = document.getElementById('trace-rhyme');
+  if (item && item.rhyme) {
+    rhymeEl.textContent = `🎵 ${item.rhyme}`;
+    rhymeEl.hidden = false;
+  } else {
+    rhymeEl.hidden = true;
+  }
 }
 
 /* ---------------- Phonics & Spelling mode ---------------- */

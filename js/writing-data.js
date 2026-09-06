@@ -7,22 +7,60 @@ const UPPERCASE_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(ch => ({
   char: ch, kind: 'letter', spokenName: ch,
 }));
 
+/* Formation rhymes describe the pencil's path in a simple, rhythmic phrase —
+   the same teaching technique used by UK phonics handwriting schemes, so a
+   child says the rhyme as they trace instead of just copying a shape. */
+const LOWERCASE_FORMATION_RHYMES = {
+  a: 'Curl around, then straight back down.',
+  b: 'Down the tall stick, then bump out round.',
+  c: 'Curl like a little moon.',
+  d: 'Curl around, up high, then straight down.',
+  e: 'Slide across, then curl right round.',
+  f: 'Down the stick, then a little cross.',
+  g: 'Curl around, straight down, curl your tail.',
+  h: 'Down the tall stick, then jump and bump.',
+  i: 'Down, then a dot on top.',
+  j: 'Down and curl, then a dot on top.',
+  k: 'Down the stick, kick in and out.',
+  l: 'Down the tall, tall stick.',
+  m: 'Down, up and bump, up and bump.',
+  n: 'Down, up and over the bump.',
+  o: 'All the way round.',
+  p: 'Down, down, then bump around.',
+  q: 'All the way round, then a little tail.',
+  r: 'Down a bit, then a little flick.',
+  s: 'Curl back, then curl forward.',
+  t: 'Down the stick, then cross it.',
+  u: 'Down, curl round, then back up.',
+  v: 'Down and up, like a smile.',
+  w: 'Down, up, down, up.',
+  x: 'Cross one way, cross the other.',
+  y: 'Down and curl, then a long tail down.',
+  z: 'Zig, then zag, then zig again.',
+};
+
 const LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('').map(ch => ({
-  char: ch, kind: 'letter', spokenName: ch,
+  char: ch, kind: 'letter', spokenName: ch, rhyme: LOWERCASE_FORMATION_RHYMES[ch],
 }));
 
-const NUMBERS = [
-  { char: '0', kind: 'number', spokenName: 'zero' },
-  { char: '1', kind: 'number', spokenName: 'one' },
-  { char: '2', kind: 'number', spokenName: 'two' },
-  { char: '3', kind: 'number', spokenName: 'three' },
-  { char: '4', kind: 'number', spokenName: 'four' },
-  { char: '5', kind: 'number', spokenName: 'five' },
-  { char: '6', kind: 'number', spokenName: 'six' },
-  { char: '7', kind: 'number', spokenName: 'seven' },
-  { char: '8', kind: 'number', spokenName: 'eight' },
-  { char: '9', kind: 'number', spokenName: 'nine' },
-];
+const NUMBER_FORMATION_RHYMES = {
+  0: 'All the way round.',
+  1: 'Straight down.',
+  2: 'Curl over, slide along.',
+  3: 'Curl in, curl in again.',
+  4: 'Down, across, then down.',
+  5: 'Down, curl round, cap on top.',
+  6: 'Curl down, then loop around.',
+  7: 'Across, then slide down.',
+  8: 'Round the top, round the bottom.',
+  9: 'Round the top, then straight down.',
+};
+
+const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+
+const NUMBERS = NUMBER_WORDS.map((word, n) => ({
+  char: String(n), kind: 'number', spokenName: word, rhyme: NUMBER_FORMATION_RHYMES[n],
+}));
 
 /* Approximate phonics sound for each letter, written phonetically so
    speechSynthesis reads it as a sound rather than a letter name. */
