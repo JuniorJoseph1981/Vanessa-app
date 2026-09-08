@@ -740,3 +740,134 @@ body.modal-open { overflow: hidden; }
   body > *:not(#print-sheet) { display: none !important; }
   #print-sheet { display: block !important; }
 }
+
+/* ==================== Alphabet Worksheets page ==================== */
+
+.ws-name-input { max-width: 320px; }
+
+.letter-nav {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 0.4rem;
+}
+@media (max-width: 700px) {
+  .letter-nav { grid-template-columns: repeat(7, 1fr); }
+}
+
+.letter-nav-btn {
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.letter-nav-btn:hover { border-color: var(--primary); }
+.letter-nav-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+.ws-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1.25rem 0 1rem;
+}
+.ws-current-label { font-weight: 700; color: var(--primary-dark); font-size: 1.05rem; }
+
+.ws-print-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.ws-print-actions .btn { flex: 1; min-width: 200px; }
+.ws-print-actions .print-hint { flex-basis: 100%; margin: 0.2rem 0 0; }
+
+.worksheet-preview { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.worksheet-page {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.worksheet-title { font-size: 1.6rem; margin-bottom: 1rem; color: var(--primary-dark); }
+
+.worksheet-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+@media (max-width: 700px) {
+  .worksheet-row { grid-template-columns: 1fr; }
+}
+
+.worksheet-box {
+  background: var(--surface-alt);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+.worksheet-row .worksheet-box { margin-bottom: 0; }
+
+.worksheet-label { font-weight: 700; color: var(--primary-dark); margin: 0 0 0.75rem; }
+.worksheet-note { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-top: 0.6rem; }
+
+.ws-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+.ws-grid-cell {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ws-pictures { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+.ws-picture { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; width: 72px; }
+.ws-picture-emoji { font-size: 2.2rem; }
+.ws-picture-label { font-size: 0.72rem; color: var(--muted); text-align: center; }
+
+.ws-trace-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 0.6rem;
+}
+.ws-trace-img:last-child { margin-bottom: 0; }
+.ws-trace-letter { max-width: 320px; }
+.ws-trace-word, .ws-trace-name { max-width: 100%; }
+
+@media print {
+  .worksheet-page { break-after: page; break-inside: avoid; border: none; box-shadow: none; padding: 0.3rem 0; }
+  .worksheet-page:last-child { break-after: auto; }
+  .worksheet-title { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .worksheet-row { gap: 0.5rem; margin-bottom: 0.5rem; }
+  .worksheet-box { padding: 0.5rem 0.6rem; margin-bottom: 0.5rem; }
+  .worksheet-label { margin-bottom: 0.3rem; font-size: 0.85rem; }
+  .ws-grid { gap: 0.25rem; }
+  .ws-grid-cell { font-size: 0.8rem; }
+  .ws-pictures { gap: 0.5rem; }
+  .ws-picture { width: 48px; }
+  .ws-picture-emoji { font-size: 1.3rem; }
+  .ws-picture-label { font-size: 0.58rem; }
+  .worksheet-note { font-size: 0.7rem; margin-top: 0.3rem; }
+  .ws-trace-letter { max-width: 150px; }
+  .ws-trace-word, .ws-trace-name { max-width: none; max-height: 55px; width: auto; margin: 0 auto 0.25rem; }
+  .ws-trace-img:last-child { margin-bottom: 0; }
+}

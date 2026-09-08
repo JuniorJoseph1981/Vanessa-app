@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spark Station — Alphabet Worksheets</title>
+  <meta name="description" content="Printable A-Z letter-formation worksheets with a find-the-letter grid, sound pictures, trace-the-letter and trace-the-words practice, and an editable trace-your-name line." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="writing-page">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-emoji" aria-hidden="true">✨</span>
+        <div>
+          <h1>Spark Station</h1>
+          <p class="tagline">Printable A–Z letter-formation worksheets</p>
+        </div>
+      </div>
+      <nav class="site-nav" aria-label="Site sections">
+        <a href="index.html" class="nav-link">🎯 Activity Generator</a>
+        <a href="writing.html" class="nav-link">✍️ Writing &amp; Phonics</a>
+        <a href="alphabet-worksheets.html" class="nav-link active">📝 Alphabet Worksheets</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="writing-main">
+
+    <div class="control-group">
+      <label class="control-label" for="child-name-input">Child's Name <span class="control-sublabel">(fills the "Trace your name" line on every worksheet)</span></label>
+      <input type="text" id="child-name-input" class="select-input ws-name-input" placeholder="e.g. Mia" maxlength="24" />
+    </div>
+
+    <div class="control-group">
+      <h2 class="control-label">Letter</h2>
+      <div id="letter-nav" class="letter-nav"></div>
+    </div>
+
+    <div class="ws-toolbar">
+      <button type="button" id="ws-prev" class="btn btn-secondary">⟵ Prev</button>
+      <p id="ws-current-label" class="ws-current-label">Letter 1 of 26: Aa</p>
+      <button type="button" id="ws-next" class="btn btn-secondary">Next ⟶</button>
+    </div>
+
+    <div class="ws-print-actions">
+      <button type="button" id="ws-print-current" class="btn btn-primary btn-print">🖨️ Print This Letter</button>
+      <button type="button" id="ws-print-all" class="btn btn-secondary btn-print">📚 Print Full A–Z Set</button>
+      <p class="print-hint">Opens the print dialog — choose "Save as PDF" as the printer to save a copy.</p>
+    </div>
+
+    <div id="worksheet-preview" class="worksheet-preview"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Letters use a single-story literacy font (matching how lowercase "a" and "g" are taught by hand) rendered as a dashed trace guide. Always supervise practice and adapt to each child's needs.</p>
+  </footer>
+
+  <div id="print-sheet" class="print-sheet" aria-hidden="true"></div>
+
+  <script src="js/alphabet-data.js"></script>
+  <script src="js/alphabet-worksheets.js"></script>
+</body>
+</html>
