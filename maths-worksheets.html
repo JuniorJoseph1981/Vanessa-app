@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spark Station — Maths Practice</title>
+  <meta name="description" content="Printable CPA-style maths practice — part-whole models, bar models, ten frames, number lines, arrays and fractions — for EYFS through KS1." />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="writing-page">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-emoji" aria-hidden="true">✨</span>
+        <div>
+          <h1>Spark Station</h1>
+          <p class="tagline">Printable maths practice — counting, number bonds, bar models &amp; more</p>
+        </div>
+      </div>
+      <nav class="site-nav" aria-label="Site sections">
+        <a href="index.html" class="nav-link">🎯 Activity Generator</a>
+        <a href="writing.html" class="nav-link">✍️ Writing &amp; Phonics</a>
+        <a href="alphabet-worksheets.html" class="nav-link">📝 Alphabet Worksheets</a>
+        <a href="maths-worksheets.html" class="nav-link active">🔢 Maths Practice</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="writing-main">
+
+    <div class="control-group">
+      <h2 class="control-label">Age Band</h2>
+      <div id="maths-age-toggle" class="toggle-group">
+        <button type="button" class="toggle-btn active" data-age="3-5">3–5 yrs</button>
+        <button type="button" class="toggle-btn" data-age="5-7">5–7 yrs</button>
+        <button type="button" class="toggle-btn" data-age="7-9">7–9 yrs</button>
+      </div>
+      <p id="maths-band-label" class="ws-current-label"></p>
+    </div>
+
+    <div class="ws-print-actions">
+      <button type="button" id="maths-generate" class="btn btn-generate">🎲 Generate New Problems</button>
+    </div>
+    <div class="ws-print-actions">
+      <button type="button" id="maths-print" class="btn btn-primary btn-print">🖨️ Print / Save as PDF</button>
+      <p class="print-hint">Opens the print dialog — choose "Save as PDF" as the printer to save a copy.</p>
+    </div>
+
+    <div id="maths-preview" class="maths-preview"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Uses the Concrete–Pictorial–Abstract (CPA) approach common to UK primary maths teaching — part-whole models, bar models, ten frames and number lines — as an original implementation, not affiliated with or copied from any particular commercial scheme. Always supervise practice and adapt to each child's needs.</p>
+  </footer>
+
+  <div id="print-sheet" class="print-sheet" aria-hidden="true"></div>
+
+  <script src="js/maths-worksheets.js"></script>
+</body>
+</html>

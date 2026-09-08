@@ -871,3 +871,118 @@ body.modal-open { overflow: hidden; }
   .ws-trace-word, .ws-trace-name { max-width: none; max-height: 55px; width: auto; margin: 0 auto 0.25rem; }
   .ws-trace-img:last-child { margin-bottom: 0; }
 }
+
+/* ==================== Maths Practice page ==================== */
+
+.maths-preview, .maths-print-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.1rem;
+}
+
+.maths-problem {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+  break-inside: avoid;
+}
+
+.maths-problem-label { font-weight: 700; color: var(--primary-dark); margin: 0 0 0.9rem; }
+
+.mw-stem { margin-top: 0.9rem; font-size: 0.95rem; }
+
+.mw-answer-box {
+  display: block;
+  width: 90px;
+  height: 60px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  margin: 0 auto;
+}
+.mw-answer-box-inline { display: inline-block; width: 46px; height: 32px; vertical-align: middle; margin: 0 0.2rem; }
+.mw-answer-box-wide { width: 140px; }
+
+.mw-count-row { display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 1.8rem; margin-bottom: 0.9rem; }
+
+.mw-compare-row { display: flex; gap: 1rem; }
+.mw-compare-group {
+  flex: 1;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  font-size: 1.5rem;
+  align-content: flex-start;
+}
+
+.mw-ten-frame {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  width: 200px;
+  margin-bottom: 0.6rem;
+}
+.mw-tf-cell {
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+}
+.mw-tf-cell.filled { background: var(--primary); border-color: var(--primary-dark); }
+
+.mw-part-whole-svg { width: 190px; height: 145px; display: block; margin: 0 auto; }
+
+.mw-bar-model { margin-bottom: 0.4rem; }
+.mw-bar {
+  background: #FDF3E3;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #8A5A12;
+  min-height: 44px;
+}
+.mw-bar-total { margin-bottom: 6px; }
+.mw-bar-row { display: flex; gap: 6px; }
+.mw-bar-part { background: #E4F1E0; border-color: #4C7A3F; color: #2F5A28; }
+.mw-bar-part-b { background: #E3EDF5; border-color: var(--primary); color: var(--primary-dark); }
+
+.mw-number-line {
+  display: flex;
+  justify-content: space-between;
+  border-top: 3px solid #333;
+  padding-top: 10px;
+  margin-top: 0.5rem;
+  position: relative;
+}
+.mw-nl-tick { border-left: 2px solid #333; height: 10px; }
+.mw-nl-num { position: relative; left: -6px; top: 12px; font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
+
+.mw-array { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0.4rem; }
+.mw-array-row { display: flex; gap: 6px; }
+.mw-array-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--primary); display: inline-block; }
+
+.mw-fraction-shape {
+  display: grid;
+  gap: 2px;
+  width: 220px;
+  height: 60px;
+  border: 2px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+.mw-frac-cell { background: var(--surface); border-right: 1px solid #333; }
+.mw-frac-cell:last-child { border-right: none; }
+.mw-frac-cell.shaded { background: var(--primary); }
+
+@media print {
+  .maths-problem { box-shadow: none; }
+}
