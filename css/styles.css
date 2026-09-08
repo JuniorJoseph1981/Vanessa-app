@@ -839,8 +839,11 @@ body.modal-open { overflow: hidden; }
 }
 
 .ws-pictures { display: flex; flex-wrap: wrap; gap: 0.9rem; }
-.ws-picture { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; width: 72px; }
-.ws-picture-emoji { font-size: 2.2rem; }
+.ws-picture { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; width: 74px; }
+.ws-picture-icon { width: 60px; height: 60px; display: block; }
+.ws-icon-svg { width: 100%; height: 100%; overflow: visible; }
+.ws-icon-svg * { fill: none; stroke: #3a3a36; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.ws-icon-svg .dot { fill: #3a3a36; stroke: none; }
 .ws-picture-label { font-size: 0.72rem; color: var(--muted); text-align: center; }
 
 .ws-trace-img {
@@ -863,8 +866,8 @@ body.modal-open { overflow: hidden; }
   .ws-grid { gap: 0.25rem; }
   .ws-grid-cell { font-size: 0.8rem; }
   .ws-pictures { gap: 0.5rem; }
-  .ws-picture { width: 48px; }
-  .ws-picture-emoji { font-size: 1.3rem; }
+  .ws-picture { width: 46px; }
+  .ws-picture-icon { width: 36px; height: 36px; }
   .ws-picture-label { font-size: 0.58rem; }
   .worksheet-note { font-size: 0.7rem; margin-top: 0.3rem; }
   .ws-trace-letter { max-width: 150px; }

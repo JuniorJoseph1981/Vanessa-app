@@ -71,24 +71,48 @@ function drawRuledLines(ctx, width, topY, midY, baseY) {
   ctx.beginPath(); ctx.moveTo(8, baseY); ctx.lineTo(width - 8, baseY); ctx.stroke();
 }
 
+/* The guide lines are positioned from the font's own measured cap-height
+   and x-height at the chosen size — not a fixed fraction of the canvas —
+   so a capital (and any lowercase letter with a tall ascender, like
+   b/d/f/h/k/l/t) naturally reaches the top line, while short lowercase
+   letters (a/c/e/m/n/o/r/s/u/v/w/x/y/z) stop at the middle line, exactly
+   matching how the typeface itself draws them. No hardcoded letter list
+   needed — it falls out of real glyph metrics. */
 function makeTraceCanvas(text, { width, height, fontSize }) {
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d');
 
-  const baseY = height * 0.72;
-  const topY = height * 0.18;
-  const midY = (topY + baseY) / 2;
-  drawRuledLines(ctx, width, topY, midY, baseY);
+  const topPad = 14;
+  const bottomPad = 14;
+  const maxWidth = width - 40;
 
   let fs = fontSize;
-  const maxWidth = width - 40;
-  ctx.font = `bold ${fs}px ${WORKSHEET_FONT}`;
-  while (ctx.measureText(text).width > maxWidth && fs > 14) {
-    fs -= 4;
-    ctx.font = `bold ${fs}px ${WORKSHEET_FONT}`;
+  function setFont() { ctx.font = `bold ${fs}px ${WORKSHEET_FONT}`; }
+  setFont();
+
+  function fitsWidth() { return ctx.measureText(text).width <= maxWidth; }
+  function fitsHeight() {
+    const cap = ctx.measureText('H').actualBoundingBoxAscent || fs * 0.72;
+    const desc = ctx.measureText(text).actualBoundingBoxDescent || 0;
+    return (cap + desc + topPad + bottomPad) <= height;
   }
+  while (fs > 14 && (!fitsWidth() || !fitsHeight())) {
+    fs -= 4;
+    setFont();
+  }
+
+  const capHeight = ctx.measureText('H').actualBoundingBoxAscent || fs * 0.72;
+  const xHeight = ctx.measureText('x').actualBoundingBoxAscent || fs * 0.5;
+  const textDescent = ctx.measureText(text).actualBoundingBoxDescent || 0;
+
+  const baseY = height - bottomPad - textDescent;
+  const topY = Math.max(topPad, baseY - capHeight);
+  const midY = baseY - xHeight;
+
+  drawRuledLines(ctx, width, topY, midY, baseY);
+
   const textWidth = ctx.measureText(text).width;
   const x = (width - textWidth) / 2;
 
@@ -102,6 +126,20 @@ function makeTraceCanvas(text, { width, height, fontSize }) {
   return canvas;
 }
 
+/* Mixes the letter's correct sound-pictures with a few wrong-answer
+   pictures borrowed from other letters, so the child has to actually
+   identify which ones start with the target sound rather than just
+   coloring everything shown. Deterministic per letter so reprints match. */
+function buildPictureSet(entry) {
+  const seed = entry.lower.charCodeAt(0) * 17 + 11;
+  const correct = entry.words.map(([word]) => ({ word, key: iconKey(word), correct: true }));
+  const pool = ALPHABET
+    .filter(e => e.letter !== entry.letter)
+    .flatMap(e => e.words.map(([word]) => ({ word, key: iconKey(word), correct: false })));
+  const wrong = shuffleSeeded(pool, seed).slice(0, 3);
+  return shuffleSeeded([...correct, ...wrong], seed + 5);
+}
+
 /* ---------------- Worksheet HTML ---------------- */
 
 function buildWorksheetHtml(entry, childName) {
@@ -111,9 +149,9 @@ function buildWorksheetHtml(entry, childName) {
     .map(ch => `<span class="ws-grid-cell">${ch}</span>`)
     .join('');
 
-  const picturesHtml = words.map(([word, emoji]) => `
+  const picturesHtml = buildPictureSet(entry).map(({ word, key }) => `
     <div class="ws-picture">
-      <span class="ws-picture-emoji">${emoji}</span>
+      <span class="ws-picture-icon">${WORD_ICONS[key] || WORD_ICONS.default}</span>
       <span class="ws-picture-label">${word}</span>
     </div>
   `).join('');
@@ -133,7 +171,7 @@ function buildWorksheetHtml(entry, childName) {
           <div class="ws-grid">${gridHtml}</div>
         </div>
         <div class="worksheet-box">
-          <p class="worksheet-label">Pictures that start with the /${lower}/ sound.</p>
+          <p class="worksheet-label">Color only the pictures that start with the /${lower}/ sound.</p>
           <div class="ws-pictures">${picturesHtml}</div>
           ${note ? `<p class="worksheet-note">${note}</p>` : ''}
         </div>
